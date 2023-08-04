@@ -105,21 +105,25 @@ public class StatesAndCapitals
         // Use findAny() or findFirst(), and orElseThrow()
         // Can use filter()
 
-        StateInfo cardinalState = null;
+        StateInfo cardinalState = states.stream()
+                .filter(state -> state.getStateBird().equals("cardinal"))
+                .findAny()
+                .orElseThrow(() -> new NoSuchElementException("No state with the state bird 'cardinal' found."));
+
 
         testResults.put("I1", StatesAndCapitalsCheck.int1(cardinalState));
 
         // I2. Find if any state's lowest elevation is less than 0
         // Use anyMatch()
 
-        Boolean isAnyStateLessThan0Elevation = null;
+        Boolean isAnyStateLessThan0Elevation = states.stream().anyMatch(state -> state.getLowestElevationInFeet() < 0);
 
         testResults.put("I2", StatesAndCapitalsCheck.int2(isAnyStateLessThan0Elevation));
 
         // I3. Find if any state's highest elevation is greater than 21000
         // Use anyMatch()
 
-        Boolean isAnyStateGreaterThan21000Elevation = null;
+        Boolean isAnyStateGreaterThan21000Elevation = states.stream().anyMatch(state -> state.getHighestElevationInFeet() > 21000);
 
         testResults.put("I3", StatesAndCapitalsCheck.int3(isAnyStateGreaterThan21000Elevation));
 
@@ -134,7 +138,7 @@ public class StatesAndCapitals
         // Use noneMatch()
         // Can use String.split()
 
-        Boolean doNoStatesHaveAOneWordMotto = null;
+        Boolean doNoStatesHaveAOneWordMotto = states.stream().noneMatch(state -> state.getStateMotto().split("\\s+").length > 1);
 
         testResults.put("I5", StatesAndCapitalsCheck.int5(doNoStatesHaveAOneWordMotto));
 
