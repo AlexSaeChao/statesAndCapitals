@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -65,28 +66,28 @@ public class StatesAndCapitals
         // B1. Submit the first five states
         // Use limit()
 
-        List<StateInfo> firstFiveStates = null;
+        List<StateInfo> firstFiveStates = states.stream().limit(5).collect(Collectors.toList());
 
         testResults.put("B1", StatesAndCapitalsCheck.basic1(firstFiveStates));
 
         // B2. Submit the last five states
         // Use skip()
 
-        List<StateInfo> lastFiveStates = null;
+        List<StateInfo> lastFiveStates = states.stream().skip(states.size() - 5).collect(Collectors.toList());
 
         testResults.put("B2", StatesAndCapitalsCheck.basic2(lastFiveStates));
 
         // B3. From 1-20, submit the first 5 numbers
         // Use limit()
 
-        List<Integer> firstFiveNumbers = IntStream.range(1, 20).boxed().collect(toList());
+        List<Integer> firstFiveNumbers = IntStream.range(1, 20).boxed().limit(5).collect(toList());
 
         testResults.put("B3", StatesAndCapitalsCheck.basic3(firstFiveNumbers));
 
         // B4. From 1-20, submit the last 5 numbers
         // Use skip()
 
-        List<Integer> lastFiveNumbers = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20).collect(toList());
+        List<Integer> lastFiveNumbers = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20).skip(15).collect(toList());
 
         testResults.put("B4", StatesAndCapitalsCheck.basic4(lastFiveNumbers));
 
@@ -94,7 +95,7 @@ public class StatesAndCapitals
         // Use count() (or counting())
         // PS: Don't use states.size(). It's easier and IntelliJ will even warn you not to do things this way. But I want you to understand how to use count() (or counting()).
 
-        Long statesNumber = null;
+        Long statesNumber = states.stream().count();
 
         testResults.put("B5", StatesAndCapitalsCheck.basic5(statesNumber));
 
